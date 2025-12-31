@@ -4,16 +4,23 @@ My own personal stm32 based driver tamplate for development.
 ## Requirements
 - GCC Compiler + arm-none-eabi packages (https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
 - CMake
-- STM32Cube
+- STM32Cube extension
 - West
-- Python
-- Extension: Cortex-Debug
+- Extension: Cortex-Debug, STM32
 
 ## Usage
-- Fork this repo and rename with "STM32_DRIVERNAME_DRV"
-- Launch script/vscode action for project creation, based on device
-- Modify .ioc with CubeMX editor as you wish
-- Modify west.yml to use additional modules
+1. Generate from CubeMX a device-related CMake project 
+2. Open it with VScode and set up as stm32 project (follow extension directives)
+3. Fork from module template and clone straight to the local STM32 project directory
+4. Add to main CMakeLists.txt 
+    ```C
+        add_subdirectory(module_name) 
+
+        target_link_libraries(${CMAKE_PROJECT_NAME}
+            [...]
+            module_name
+        )
+    ```
 
 ## Notes
 - Remember to check .gitignore to avoid unwanted code on main repos
@@ -22,4 +29,5 @@ My own personal stm32 based driver tamplate for development.
 
 ## TODOs
 - move all of ths to containerized working space to set it up exactly as this
+- automate stm32 configuration and project creation with tasks
 

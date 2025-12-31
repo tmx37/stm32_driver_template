@@ -1,16 +1,10 @@
-cmake_minimum_required(VERSION 3.20)
+# Library main CMakeLists, add here dependencies for compilation
 
-# Uses stm32cub generated toolchain
-set(CMAKE_TOOLCHAIN_FILE
-    ${CMAKE_SOURCE_DIR}/test_prj/cmake/gcc-arm-none-eabi.cmake
-    CACHE FILEPATH "ARM GCC toolchain"
+add_library(module_name STATIC
+    src/Drv_Template.c
 )
 
-# set(ENV{STM32_LINKER_SCRIPT} "${CMAKE_SOURCE_DIR}/test_prj/STM32L433XX_FLASH.ld")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${CMAKE_SOURCE_DIR}/test_prj/STM32L433XX_FLASH.ld")
-
-
-project("stm32_driver_template")
-
-add_subdirectory(test_prj)
-add_subdirectory(module_name)
+target_include_directories(module_name
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
